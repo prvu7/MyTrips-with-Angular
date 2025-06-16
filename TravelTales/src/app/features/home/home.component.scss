@@ -123,12 +123,14 @@
     padding: 1rem;
     border: 1px solid #8cb6d6;  
     border-radius: 8px;
+    background-color: #c4d9e9;
 
     h4 {
       position: relative;
       padding-left: 1.5rem;     
       margin-top: 1.5rem;
       margin-bottom: 0.5rem;
+      font-size: 1.05rem;
 
       &::before {
         content: "•";        
@@ -154,7 +156,7 @@
 .footer {
   width: 100%;
   font-family: monospace;
-  margin-top: 250px;
+  margin-top: 7rem;
 }
 
 .footer-content {
