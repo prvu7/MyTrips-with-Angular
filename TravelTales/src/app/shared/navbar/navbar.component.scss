@@ -45,7 +45,7 @@
   .nav-list {
     display: flex;
     list-style: none;
-    margin: 0;
+    margin-top: 7%; 
     padding: 0;
     gap: 2rem;
   }
@@ -68,6 +68,29 @@
     }
   }
 }
+
+.login-button{
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  margin-top: 2%; 
+  margin-left: 150%;
+   width: 15%;
+   height: 65%;
+   text-decoration: none;
+   color: #ffffff;
+   font-weight: 500;
+   font-size: 1rem;
+   border-radius: 6px;
+   transition: all 0.3s ease; 
+   background-color: #1890ff;
+    border: none;
+       &:hover {
+        color: #1890ff;
+        background-color: #f0f7ff;
+      }
+}
+
 
 .navbar-user {
   justify-self: end; // Aligns user section to the right
