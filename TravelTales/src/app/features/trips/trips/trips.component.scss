@@ -78,8 +78,8 @@
     background: rgba(60,60,60,0.15);
     color: #ff4d4f;
     border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: auto;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,10 +99,9 @@
       min-width: 7rem;
       box-shadow: 0 4px 16px rgba(255,77,79,0.25);
       border: none;
-      padding: 0 1.5rem 0 1.2rem;
       &::after {
         opacity: 1;
-        left: 2.5rem;
+        left: 0.5rem;
         color: #fff;
       }
       > span {
@@ -245,35 +244,6 @@
   margin-top: 0;
 }
 
-.tag {
-  background-color: #ffffff;
-  color: #1890ff;
-  padding: 0.25rem 0.75rem;
-  border-radius: 16px;
-  font-size: 0.85rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  position: relative;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-
-  .remove-tag {
-    background: none;
-    border: none;
-    color: #1890ff;
-    cursor: pointer;
-    padding: 0;
-    font-size: 1rem;
-    line-height: 1;
-    opacity: 0.7;
-    transition: opacity 0.3s;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-}
 
 .selected-tags {
   display: flex;
