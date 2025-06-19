@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule, NgForm, EmailValidator } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-singup',
@@ -25,7 +26,10 @@ export class SignupComponent {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private auth: AuthService
+  ) {}
 
   validateEmail(email: string): boolean {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -67,15 +71,16 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    if (this.emailError || this.passwordError) {
-      return;
-    }
-    // Aici vei implementa logica de înregistrare
-    console.log('Signup attempt:', { 
-      name: `${this.fname} ${this.lname}`,
-      email: this.email, 
-      password: this.password 
-    });
+    this.auth.signup(this.email, this.password, { name:`${this.fname} ${this.lname}`})
+      .subscribe({
+        next: (response: any) => {
+          console.log('Signup successful:', response);
+          this.router.navigate(['/login']);
+        },
+        error: (error: any) => {
+          console.error('Signup error:', error);
+        }
+      });
   }
 
   navigateToLogin() {

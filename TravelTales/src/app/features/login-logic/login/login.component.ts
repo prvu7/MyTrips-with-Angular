@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule, NgForm, EmailValidator } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 
 @Component({
@@ -17,8 +18,13 @@ export class LoginComponent {
   emailError: boolean = false;
   emailTouched: boolean = false;
   showPassword: boolean = false;
+  loginError: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
+
+  ngOnInit(): void {
+    this.authService.logout(); 
+  }
 
   validateEmail(email: string): boolean {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -41,11 +47,27 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.emailError) {
-      return;
+  this.authService.login(this.email, this.password).subscribe({
+    next: (response: any) => {
+      console.log('Login successful:', response);
+      if (response.token) {
+        this.authService.setToken(response.token);
+      } else {
+        this.authService.setToken('true'); 
+      }
+      this.router.navigate(['']);
+    },
+    error: (error: any) => {
+      console.error('Login error:', error);
+      if (error.status === 400) {
+        this.loginError = 'Email sau parolă incorectă.';
+      } else if (error.status === 401) {
+        this.loginError = 'Eroare de autorizare. Verifică datele.';
+      } else {
+        this.loginError = 'Eroare la autentificare. Te rugăm să încerci din nou.';
+      }
     }
-    // Aici vei implementa logica de autentificare
-    console.log('Login attempt:', { email: this.email, password: this.password });
+  });
   }
 
   navigateToSignup() {
