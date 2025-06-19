@@ -1,0 +1,18 @@
+[
+  {
+    "email": "sbalanica8@gmail.com",
+    "password": "123456",
+    "name": "Stefan Balanica"
+  },
+  {
+    "email": "gerogepirvu@yahoo.com",
+    "password": "123456",
+    "name": "George Pirvu"
+  },
+  {
+    "email": "unie.principal@gmail.com",
+    "password": "123456",
+    "name": "Vali Tornada",
+    "color": "#10a274"
+  }
+]

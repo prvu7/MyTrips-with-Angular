@@ -55,7 +55,8 @@ export class LoginComponent {
       } else {
         this.authService.setToken('true'); 
       }
-      this.router.navigate(['']);
+      localStorage.setItem('userEmail', this.email);
+      this.router.navigate(['home']);
     },
     error: (error: any) => {
       console.error('Login error:', error);

@@ -69,9 +69,12 @@ export class SignupComponent {
   toggleConfirmPasswordVisibility() {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
-
+generateRandomColor(): string {
+  return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+}
   onSubmit() {
-    this.auth.signup(this.email, this.password, { name:`${this.fname} ${this.lname}`})
+    const color = this.generateRandomColor();
+    this.auth.signup(this.email, this.password, { name:`${this.fname} ${this.lname}`, color })
       .subscribe({
         next: (response: any) => {
           console.log('Signup successful:', response);

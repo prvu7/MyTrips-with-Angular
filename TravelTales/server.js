@@ -11,8 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Cale absolută către users.json
-const usersPath = path.join(__dirname, 'src', 'app', 'users.json');
-
+const usersPath = path.join(__dirname, 'src', 'assets', 'users.json');
 // Ruta pentru signup
 app.post('/signup', (req, res) => {
   const userData = req.body;

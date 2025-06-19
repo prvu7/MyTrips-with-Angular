@@ -75,7 +75,7 @@
   align-items: center; 
   margin-top: 2%; 
   margin-left: 150%;
-   width: 15%;
+   width: 7%;
    height: 65%;
    text-decoration: none;
    color: #ffffff;
@@ -91,9 +91,7 @@
       }
 }
 
-
-.navbar-user {
-  justify-self: end; // Aligns user section to the right
-  display: flex;
-  align-items: center;
+.user-logo{
+   margin-top: -16%; 
+  margin-left: 300%;
 }

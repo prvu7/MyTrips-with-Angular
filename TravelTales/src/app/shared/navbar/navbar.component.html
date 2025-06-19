@@ -21,16 +21,15 @@
         </li>
       </ul>
     </div>
-    <button class="login-button" nz-button nzType="primary" routerLink="/login">
-      <nz-icon nzType="login" nzTheme="outline"></nz-icon>
-      Login
+    <button class="login-button" nz-button nzType="primary" *ngIf="authService.isLoggedIn()" routerLink="/login">
+     <nz-icon nzType="logout" nzTheme="outline"></nz-icon> 
     </button>
     
 
-
     <!-- User Icon -->
-    <div class="navbar-user">
-        <nz-icon nzType="user" nzTheme="outline"></nz-icon>
-    </div>
+    <div class="navbar-user" *ngIf="authService.isLoggedIn()">
+<nz-avatar [nzText]="initial" class="user-logo" [nzSize]="'large'" [ngStyle]="{'background': color, 'color': '#fff'}"></nz-avatar>
+</div>
+
   </div>
 </nav>
