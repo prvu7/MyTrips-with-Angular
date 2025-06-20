@@ -1,8 +1,9 @@
 export interface Trip {
-    id: number;
-    destination: string;
-    startDate: Date;
-    endDate: Date;
-    description: string;
-    userId: number; // FK
+  cityName: string;
+  country: string;
+  visitDate: string;
+  description: string;
+  imageUrl: string;
+  tags: string[];
+  status: 'vizitat' | 'urmeaza';
 }
