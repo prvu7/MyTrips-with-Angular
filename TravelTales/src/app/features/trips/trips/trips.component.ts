@@ -1,23 +1,15 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Trip {
-  cityName: string;
-  country: string;
-  visitDate: string;
-  description: string;
-  imageUrl: string;
-  tags: string[];
-  status: 'vizitat' | 'urmeaza';
-}
+import { Trip } from '../../../core/trip/trip.interface';
+import { TripService } from '../../../core/trip/trip.service';
 
 @Component({
   selector: 'app-trips',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './trips.component.html',
-  styleUrl: './trips.component.scss'
+  styleUrls: ['./trips.component.scss']  
 })
 export class TripsComponent {
   @ViewChild('imageInput') imageInput!: ElementRef;
@@ -32,7 +24,7 @@ export class TripsComponent {
     description: '',
     imageUrl: '',
     tags: [],
-    status: 'urmeaza' // Default status
+    status: 'urmeaza'
   };
   selectedImage: File | null = null;
   imagePreview: string | null = null;
@@ -73,44 +65,12 @@ export class TripsComponent {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  trips: Trip[] = [
-    {
-      cityName: 'Paris',
-      country: 'France',
-      visitDate: '15 March 2024',
-      description: 'A memorable trip to the City of Lights, with visits to the Eiffel Tower and the Louvre Museum.',
-      imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=1000',
-      tags: ['Museums', 'Architecture', 'Good Food'],
-      status: 'vizitat'
-    },
-    {
-      cityName: 'Rome',
-      country: 'Italy',
-      visitDate: '20 February 2024',
-      description: 'Exploring the Colosseum and the Vatican, in the heart of ancient Rome.',
-      imageUrl: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=1000',
-      tags: ['History', 'Good Food', 'Local Traditions'],
-      status: 'vizitat'
-    },
-    {
-      cityName: 'Barcelona',
-      country: 'Spain',
-      visitDate: '10 January 2024',
-      description: 'Modern architecture and beautiful beaches in the capital of Catalonia.',
-      imageUrl: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=1000',
-      tags: ['Architecture', 'Beaches', 'Nightlife'],
-      status: 'vizitat'
-    },
-    {
-      cityName: 'Amsterdam',
-      country: 'Netherlands',
-      visitDate: '5 December 2023',
-      description: 'Picturesque canals and world-renowned museums in the capital of the Netherlands.',
-      imageUrl: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?q=80&w=1000',
-      tags: ['Museums', 'Cultural Events', 'Hospitality'],
-      status: 'vizitat'
-    }
-  ];
+  trips: Trip[] = [];
+
+  constructor(private tripService: TripService) {
+    // Retrieve trips from the service
+    this.trips = this.tripService.getTrips();
+  }
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -169,13 +129,11 @@ export class TripsComponent {
   onImageSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      // Check if file is an image
       if (!file.type.startsWith('image/')) {
         alert('Please select image files only.');
         return;
       }
 
-      // Check file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         alert('Image is too large. Maximum allowed size is 5MB.');
         return;
@@ -192,7 +150,7 @@ export class TripsComponent {
   }
 
   removeImage(event: Event) {
-    event.stopPropagation(); // Prevent the click from triggering the file input
+    event.stopPropagation();
     this.selectedImage = null;
     this.imagePreview = null;
     this.newTrip.imageUrl = '';
@@ -220,9 +178,9 @@ export class TripsComponent {
       };
 
       if (this.isEditing && this.editingIndex !== -1) {
-        this.trips[this.editingIndex] = formattedTrip;
+        this.tripService.updateTrip(this.editingIndex, formattedTrip);
       } else {
-        this.trips.unshift(formattedTrip);
+        this.tripService.addTrip(formattedTrip);
       }
       
       this.closeModal();
