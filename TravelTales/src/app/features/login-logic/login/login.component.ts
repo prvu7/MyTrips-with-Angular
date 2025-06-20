@@ -59,14 +59,6 @@ export class LoginComponent {
       this.router.navigate(['home']);
     },
     error: (error: any) => {
-      console.error('Login error:', error);
-      if (error.status === 400) {
-        this.loginError = 'Email sau parolă incorectă.';
-      } else if (error.status === 401) {
-        this.loginError = 'Eroare de autorizare. Verifică datele.';
-      } else {
-        this.loginError = 'Eroare la autentificare. Te rugăm să încerci din nou.';
-      }
     }
   });
   }

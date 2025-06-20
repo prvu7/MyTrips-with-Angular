@@ -8,7 +8,8 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { HttpClient } from '@angular/common/http';
-
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -22,9 +23,14 @@ export class NavbarComponent implements OnInit {
    userData: any;
    name: string = '';
    color: string = '#1890ff';
-  constructor(public authService: AuthService, private http: HttpClient) {}
-  
-ngOnInit() {
+  constructor(public authService: AuthService, private http: HttpClient, private router: Router) {
+      this.router.events.pipe(
+    filter(event => event instanceof NavigationEnd)
+  ).subscribe(() => {
+    this.loadUserData();
+  });
+  }
+loadUserData() {
   this.http.get<any[]>('/assets/users.json').subscribe(users => {
     const userEmail = localStorage.getItem('userEmail');
     const user = users.find(u => u.email === userEmail);
@@ -44,6 +50,12 @@ ngOnInit() {
       this.color = '#1890ff';
     }
   });
+}
+
+  
+  
+ngOnInit() {
+this.loadUserData();
 }
 menuOpen = false;
 
