@@ -1,0 +1,58 @@
+.table-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    color: #1890ff;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+  }
+}
+
+.tag {
+  display: inline-block;
+  background: rgba(24, 144, 255, 0.1);
+  color: #1890ff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin: 0.125rem;
+  font-weight: 500;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+
+  &.status-vizitat {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+  }
+
+  &.status-urmeaza {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+  }
+}
+
+// ng-zorro table customization
+::ng-deep .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  color: #1890ff;
+  font-weight: 600;
+  border-bottom: 2px solid #e8e8e8;
+}
+
+::ng-deep .ant-table-tbody > tr:hover > td {
+  background-color: rgba(24, 144, 255, 0.05);
+}
+
+::ng-deep .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 1rem 0.75rem;
+} 

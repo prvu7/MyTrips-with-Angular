@@ -1,0 +1,37 @@
+<div class="table-container">
+  <h2>Trip Data Table</h2>
+  
+  <nz-table #basicTable [nzData]="trips">
+    <thead>
+      <tr>
+        <th>City</th>
+        <th>Country</th>
+        <th>Visit Date</th>
+        <th>Description</th>
+        <th>Tags</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let trip of basicTable.data">
+        <td>{{ trip.cityName }}</td>
+        <td>{{ trip.country }}</td>
+        <td>{{ trip.visitDate }}</td>
+        <td>{{ trip.description }}</td>
+        <td>
+          <span *ngFor="let tag of trip.tags" class="tag">
+            {{ tag }}
+          </span>
+        </td>
+        <td>
+          <span class="status-badge" [ngClass]="{
+            'status-vizitat': trip.status === 'vizitat',
+            'status-urmeaza': trip.status === 'urmeaza'
+          }">
+            {{ trip.status === 'vizitat' ? 'Visited' : 'Upcoming' }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div> 

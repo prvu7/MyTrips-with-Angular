@@ -50,19 +50,19 @@
       "Hospitality"
     ],
     "status": "vizitat"
-  }
-  ,
+  },
   {
-    "cityName": "Barcelona",
-    "country": "Spain",
-    "visitDate": "10 January 2024",
-    "description": "Modern architecture and beautiful beaches in the capital of Catalonia.",
-    "imageUrl": "https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=1000",
+    "cityName": "Tokyo",
+    "country": "Japan",
+    "visitDate": "15 June 2024",
+    "description": "Exploring the vibrant culture, technology, and traditional temples of Japan's capital city.",
+    "imageUrl": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1000",
     "tags": [
-      "Architecture",
-      "Beaches",
-      "Nightlife"
+      "Cultural Events",
+      "Technology",
+      "Local Traditions",
+      "Good Food"
     ],
-    "status": "vizitat"
+    "status": "urmeaza"
   }
 ]

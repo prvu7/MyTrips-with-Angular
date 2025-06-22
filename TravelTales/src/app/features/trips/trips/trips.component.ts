@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Trip } from '../../../core/trip/trip.interface';
 import { TripService } from '../../../core/trip/trip.service';
+import { TableComponent } from '../../table/table.component';
 
 @Component({
   selector: 'app-trips',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TableComponent],
   templateUrl: './trips.component.html',
   styleUrls: ['./trips.component.scss']  
 })
@@ -18,6 +19,7 @@ export class TripsComponent implements OnInit {
   showModal: boolean = false;
   isEditing: boolean = false;
   editingIndex: number = -1;
+  currentView: 'cards' | 'table' = 'cards'; // Default to cards view
   newTrip: Trip = {
     cityName: '',
     country: '',
@@ -72,6 +74,10 @@ export class TripsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTripsFromJson();
+  }
+
+  setView(view: 'cards' | 'table'): void {
+    this.currentView = view;
   }
 
   loadTripsFromJson(): void {

@@ -3,12 +3,23 @@
 <div class="trips-container">
   <div class="header">
     <h1>My Trips</h1>
-    <button class="add-trip-btn" (click)="openModal()">
-      <i class="fas fa-plus"></i> Add New Trip
-    </button>
+    <div class="header-actions">
+      <div class="view-toggle">
+        <button class="toggle-btn active" (click)="setView('cards')">
+          <i class="fas fa-th"></i> Cards
+        </button>
+        <button class="toggle-btn" (click)="setView('table')">
+          <i class="fas fa-table"></i> Table
+        </button>
+      </div>
+      <button class="add-trip-btn" (click)="openModal()">
+        <i class="fas fa-plus"></i> Add New Trip
+      </button>
+    </div>
   </div>
 
-  <div class="trips-grid">
+  <!-- Cards View -->
+  <div class="trips-grid" *ngIf="currentView === 'cards'">
     <div class="trip-card" *ngFor="let trip of trips; let i = index">
       <div class="trip-image" [style.background-image]="'url(' + trip.imageUrl + ')'">
         <div class="tags-floating">
@@ -41,6 +52,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Table View -->
+  <app-table *ngIf="currentView === 'table'"></app-table>
 
   <!-- Modal -->
   <div class="modal" *ngIf="showModal">

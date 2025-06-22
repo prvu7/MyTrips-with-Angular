@@ -38,5 +38,11 @@
     "password": "123456",
     "name": "George Pirvu",
     "color": "#550d37"
+  },
+  {
+    "email": "george.pirvuu@gmail.com",
+    "password": "admin1",
+    "name": "George Pirvu",
+    "color": "#22f17d"
   }
-] 
+]
