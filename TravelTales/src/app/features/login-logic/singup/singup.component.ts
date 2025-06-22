@@ -74,7 +74,11 @@ export class SignupComponent {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 generateRandomColor(): string {
-  return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+  const hue = Math.floor(Math.random() * 360); // Nuanța: 0-359
+  const saturation = Math.floor(Math.random() * 21) + 70; // Saturația: 70-90%
+  const lightness = Math.floor(Math.random() * 16) + 25; // Luminozitatea: 25-40%
+
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
     onSubmit() {
       this.signupError = '';

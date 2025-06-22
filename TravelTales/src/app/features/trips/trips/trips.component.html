@@ -130,12 +130,20 @@
             </div>
           </div>
         </div>
-
-        <div class="form-actions">
-          <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
-          <button type="submit" class="submit-btn">{{ isEditing ? 'Save' : 'Add' }}</button>
-        </div>
       </form>
+      
+      <div class="modal-footer">
+        <div class="action-buttons">
+          <button type="button" class="delete-btn" *ngIf="isEditing" (click)="deleteTrip()">
+            Delete Trip
+          </button>
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+          <button type="submit" (click)="onSubmit()" class="submit-btn">
+            {{ isEditing ? 'Save Changes' : 'Add Trip' }}
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

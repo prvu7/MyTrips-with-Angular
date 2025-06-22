@@ -69,29 +69,35 @@
   }
 }
 
-.login-button{
-  display: flex; 
-  justify-content: center;
-  align-items: center; 
-  margin-top: 2%; 
-  margin-left: 150%;
-   width: 7%;
-   height: 65%;
-   text-decoration: none;
-   color: #ffffff;
-   font-weight: 500;
-   font-size: 1rem;
-   border-radius: 6px;
-   transition: all 0.3s ease; 
-   background-color: #1890ff;
-    border: none;
-       &:hover {
-        color: #1890ff;
-        background-color: #f0f7ff;
-      }
+.navbar-actions {
+  justify-self: end;
 }
 
+
+
 .user-logo{
-   margin-top: -16%; 
-  margin-left: 300%;
+  margin: 0rem; 
+}
+
+.user-info-item {
+  &:hover {
+    background-color: transparent !important; 
+    cursor: default;
+  }
+
+  .user-details {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+  }
+
+  .user-name {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .user-email {
+    font-size: 0.85rem;
+    color: #666;
+  }
 }

@@ -21,15 +21,34 @@
         </li>
       </ul>
     </div>
-    <button class="login-button" nz-button nzType="primary" *ngIf="authService.isLoggedIn()" routerLink="/login">
-     <nz-icon nzType="logout" nzTheme="outline"></nz-icon> 
-    </button>
     
+    <!-- Actions (Logout and User) -->
+    <div class="navbar-actions">
+      <!-- User Icon with Dropdown -->
+      <a nz-dropdown [nzDropdownMenu]="menu">
+        <div class="navbar-user" *ngIf="authService.isLoggedIn()">
+          <nz-avatar [nzText]="initial" class="user-logo" [nzSize]="'large'" [ngStyle]="{'background': color, 'color': '#fff'}"></nz-avatar>
+        </div>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <!-- User Info Section -->
+          <li nz-menu-item nzDisabled class="user-info-item">
+            <div class="user-details">
+              <span class="user-name">{{ name }}</span>
+              <span class="user-email">{{ email }}</span>
+            </div>
+          </li>
+          <li nz-menu-divider></li>
 
-    <!-- User Icon -->
-    <div class="navbar-user" *ngIf="authService.isLoggedIn()">
-<nz-avatar [nzText]="initial" class="user-logo" [nzSize]="'large'" [ngStyle]="{'background': color, 'color': '#fff'}"></nz-avatar>
-</div>
+          <!-- Actions -->
+          <li nz-menu-item routerLink="/login">
+            <span nz-icon nzType="logout"></span>
+            Logout
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
 
   </div>
 </nav>

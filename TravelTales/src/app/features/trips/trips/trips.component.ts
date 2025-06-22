@@ -191,6 +191,26 @@ export class TripsComponent implements OnInit {
     this.newTrip.tags = this.newTrip.tags.filter(t => t !== tag);
   }
 
+  deleteTrip() {
+    if (!this.isEditing || this.editingIndex === -1) {
+      return; // Doar pentru siguranță, nu ar trebui să se întâmple
+    }
+
+    // Afișează o fereastră de confirmare
+    if (confirm('Are you sure you want to delete this trip?')) {
+      this.http.delete<{message: string, trips: Trip[]}>(`http://localhost:3000/trips/${this.editingIndex}`).subscribe({
+        next: (response) => {
+          this.trips = response.trips;
+          this.closeModal();
+        },
+        error: (error) => {
+          console.error('Error deleting trip:', error);
+          alert('Error deleting trip. Please try again.');
+        }
+      });
+    }
+  }
+
   onSubmit() {
     if (this.newTrip.cityName && this.newTrip.country && this.newTrip.visitDate && this.newTrip.description && this.newTrip.imageUrl) {
       const formattedTrip = {

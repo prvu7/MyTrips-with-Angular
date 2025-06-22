@@ -8,7 +8,8 @@ const app = express();
 const PORT = 3000;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Cale absolută către users.json
 const usersPath = path.join(__dirname, 'src', 'assets', 'users.json');
@@ -84,20 +85,30 @@ app.get('/trips', (req, res) => {
 
 // POST o noua calatorie
 app.post('/trips', (req, res) => {
+  console.log('--- Received POST request for /trips ---');
   try {
     const tripData = req.body;
+    console.log('Request body:', tripData);
 
     let trips = [];
     if (fs.existsSync(tripsPath) && fs.readFileSync(tripsPath, 'utf8').trim() !== '') {
+      console.log('Reading existing trips.json...');
       trips = JSON.parse(fs.readFileSync(tripsPath, 'utf8'));
+      console.log('Successfully parsed trips.json.');
+    } else {
+      console.log('trips.json is empty or does not exist. Starting with an empty array.');
     }
 
     trips.unshift(tripData);
+    console.log('New trip added to the array.');
 
     fs.writeFileSync(tripsPath, JSON.stringify(trips, null, 2));
+    console.log('Successfully wrote back to trips.json.');
 
     res.json({ message: 'Călătorie salvată cu succes!', trips });
+    console.log('--- Successfully processed POST request for /trips ---');
   } catch (error) {
+    console.error('!!! ERROR in POST /trips:', error); // Log detaliat al erorii
     res.status(500).json({ message: 'Eroare la salvarea călătoriei!' });
   }
 });

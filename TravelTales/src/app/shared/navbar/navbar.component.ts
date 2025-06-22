@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
   initial: string = '';
    userData: any;
    name: string = '';
+   email: string = '';
    color: string = '#1890ff';
   constructor(public authService: AuthService, private http: HttpClient, private router: Router) {
       this.router.events.pipe(
@@ -33,19 +34,28 @@ export class NavbarComponent implements OnInit {
 loadUserData() {
   this.http.get<any[]>('/assets/users.json').subscribe(users => {
     const userEmail = localStorage.getItem('userEmail');
-    const user = users.find(u => u.email === userEmail);
-    if (user && user.name) {
-      this.name = user.name;
-      this.color = user.color;
-      this.initial = this.name
-        .split(' ')
-        .filter(word => word.length > 0)
-        .map(word => word[0])
-        .slice(0, 2)
-        .join('')
-        .toUpperCase();
+    if (userEmail) {
+      this.email = userEmail;
+      const user = users.find(u => u.email === userEmail);
+      if (user && user.name) {
+        this.name = user.name;
+        this.color = user.color;
+        this.initial = this.name
+          .split(' ')
+          .filter(word => word.length > 0)
+          .map(word => word[0])
+          .slice(0, 2)
+          .join('')
+          .toUpperCase();
+      } else {
+        this.name = '';
+        this.email = '';
+        this.initial = '';
+        this.color = '#1890ff';
+      }
     } else {
       this.name = '';
+      this.email = '';
       this.initial = '';
       this.color = '#1890ff';
     }

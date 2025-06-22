@@ -506,40 +506,6 @@ form {
   }
 }
 
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 2rem;
-
-  button {
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-
-  .cancel-btn {
-    background: none;
-    border: 1px solid #ddd;
-    color: #666;
-
-    &:hover {
-      background: #f5f5f5;
-    }
-  }
-
-  .submit-btn {
-    background: #1890ff;
-    border: none;
-    color: white;
-
-    &:hover {
-      background-color: darken(#1890ff, 10%);
-    }
-  }
-}
 
 @media (max-width: 768px) {
   .trips-container {
@@ -594,5 +560,60 @@ form {
         background: darken(#ff4d4f, 10%);
       }
     }
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #eee;
+  background-color: #f9f9f9;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.submit-btn, .delete-btn, .cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submit-btn {
+  background-color: #1890ff;
+  color: white;
+
+  &:hover {
+    background-color: darken(#1890ff, 10%);
+  }
+}
+
+.delete-btn {
+  background-color: #ff4d4f;
+  color: white;
+
+  &:hover {
+    background-color: darken(#ff4d4f, 10%);
+  }
+}
+
+.cancel-btn {
+  background-color: #f0f2f5;
+  color: #595959;
+  border: 1px solid #d9d9d9;
+
+  &:hover {
+    background-color: darken(#f0f2f5, 5%);
+    border-color: darken(#d9d9d9, 5%);
   }
 }
