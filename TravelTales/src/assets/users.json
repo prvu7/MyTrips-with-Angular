@@ -1,48 +1,8 @@
 [
   {
-    "email": "sbalanica8@gmail.com",
+    "email": "stefanbalanica22@yahoo.com",
     "password": "123456",
-    "name": "Stefan Balanica"
-  },
-  {
-    "email": "gerogepirvu@yahoo.com",
-    "password": "123456",
-    "name": "George Pirvu"
-  },
-  {
-    "email": "unie.principal@gmail.com",
-    "password": "123456",
-    "name": "Vali Tornada",
-    "color": "#10a274"
-  },
-  {
-    "email": "gp@gmail.com",
-    "password": "123456",
-    "name": "Geroge Pirvu",
-    "color": "#cc6b80"
-  },
-  {
-    "email": "ab@gmail.com",
-    "password": "123456",
-    "name": "Andrei Bbb",
-    "color": "#5b5e5b"
-  },
-  {
-    "email": "mp@gmail.com",
-    "password": "123456",
-    "name": "Marian Popa",
-    "color": "#937140"
-  },
-  {
-    "email": "georgep@gmail.com",
-    "password": "123456",
-    "name": "George Pirvu",
-    "color": "#550d37"
-  },
-  {
-    "email": "george.pirvuu@gmail.com",
-    "password": "admin1",
-    "name": "George Pirvu",
-    "color": "#22f17d"
+    "name": "Stefan Balanica",
+    "color": "#1e8e6f"
   }
 ]

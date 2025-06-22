@@ -19,6 +19,8 @@ export class LoginComponent {
   emailTouched: boolean = false;
   showPassword: boolean = false;
   loginError: string = '';
+  emailNotFoundError: boolean = false;
+  incorrectPasswordError: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -36,6 +38,10 @@ export class LoginComponent {
       this.emailError = !this.validateEmail(this.email);
     }
   }
+
+      onPasswordChange() {
+        this.incorrectPasswordError = false;
+    }
 
   onEmailBlur() {
     this.emailTouched = true;
@@ -59,6 +65,20 @@ export class LoginComponent {
       this.router.navigate(['home']);
     },
     error: (error: any) => {
+      console.error('Login error:', error);
+
+      // Verifică statusul 404 PRIMUL
+      if (error.status === 404) {
+        this.emailNotFoundError = true;
+      } 
+      // Apoi, verifică statusul 401
+      else if (error.status === 401) {
+        this.incorrectPasswordError = true;
+      } 
+      // La final, eroarea generală
+      else {
+        this.loginError = 'Eroare la autentificare. Te rugăm să încerci din nou.';
+      }
     }
   });
   }
