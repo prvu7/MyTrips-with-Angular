@@ -1,6 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { Trip } from '../../../core/trip/trip.interface';
 import { TripService } from '../../../core/trip/trip.service';
 
@@ -11,7 +12,7 @@ import { TripService } from '../../../core/trip/trip.service';
   templateUrl: './trips.component.html',
   styleUrls: ['./trips.component.scss']  
 })
-export class TripsComponent {
+export class TripsComponent implements OnInit {
   @ViewChild('imageInput') imageInput!: ElementRef;
   
   showModal: boolean = false;
@@ -67,9 +68,23 @@ export class TripsComponent {
 
   trips: Trip[] = [];
 
-  constructor(private tripService: TripService) {
-    // Retrieve trips from the service
-    this.trips = this.tripService.getTrips();
+  constructor(private tripService: TripService, private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.loadTripsFromJson();
+  }
+
+  loadTripsFromJson(): void {
+    this.http.get<Trip[]>('http://localhost:3000/trips').subscribe({
+      next: (trips) => {
+        this.trips = trips;
+      },
+      error: (error) => {
+        console.error('Error loading trips:', error);
+        // Fallback to local data if server is not available
+        this.trips = this.tripService.getTrips();
+      }
+    });
   }
 
   formatDate(dateString: string): string {
@@ -178,12 +193,30 @@ export class TripsComponent {
       };
 
       if (this.isEditing && this.editingIndex !== -1) {
-        this.tripService.updateTrip(this.editingIndex, formattedTrip);
+        // Update existing trip
+        this.http.put<{message: string, trips: Trip[]}>(`http://localhost:3000/trips/${this.editingIndex}`, formattedTrip).subscribe({
+          next: (response) => {
+            this.trips = response.trips;
+            this.closeModal();
+          },
+          error: (error) => {
+            console.error('Error updating trip:', error);
+            alert('Error updating trip. Please try again.');
+          }
+        });
       } else {
-        this.tripService.addTrip(formattedTrip);
+        // Add new trip
+        this.http.post<{message: string, trips: Trip[]}>(`http://localhost:3000/trips`, formattedTrip).subscribe({
+          next: (response) => {
+            this.trips = response.trips;
+            this.closeModal();
+          },
+          error: (error) => {
+            console.error('Error adding trip:', error);
+            alert('Error adding trip. Please try again.');
+          }
+        });
       }
-      
-      this.closeModal();
     }
   }
 }
