@@ -23,6 +23,12 @@ app.post('/signup', (req, res) => {
     users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
   }
 
+    // Verifică dacă emailul există deja
+  const emailExists = users.some(user => user.email === userData.email);
+  if (emailExists) {
+    return res.status(409).json({ message: 'Un cont cu acest email există deja.' });
+  }
+
   // Adaugă noul user
   users.push(userData);
 
@@ -42,14 +48,21 @@ app.post('/login', (req, res) => {
     users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
   }
 
-  // Caută userul cu email și parolă potrivite
-  const user = users.find(u => u.email === email && u.password === password);
+  // Caută userul DOAR după email
+  const user = users.find(u => u.email === email);
 
-  if (user) {
-    res.json({ message: 'Login reușit!', user });
-  } else {
-    res.status(401).json({ message: 'Email sau parolă incorectă!' });
+  // Verificare 1: Emailul nu a fost găsit
+  if (!user) {
+    return res.status(404).json({ message: 'Emailul nu este înregistrat.' });
   }
+
+  // Verificare 2: Parola este greșită
+  if (user.password !== password) {
+    return res.status(401).json({ message: 'Parolă incorectă.' });
+  }
+
+  // Succes: Email și parolă corecte
+  res.json({ message: 'Login reușit!', user });
 });
 
 

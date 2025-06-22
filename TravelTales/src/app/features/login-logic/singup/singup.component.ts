@@ -18,6 +18,7 @@ export class SignupComponent {
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
+  signupError: string = '';
   
   emailError: boolean = false;
   emailTouched: boolean = false;
@@ -25,6 +26,7 @@ export class SignupComponent {
   passwordTouched: boolean = false;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
+  duplicateEmailError: boolean = false;
 
   constructor(
     private router: Router,
@@ -44,6 +46,7 @@ export class SignupComponent {
     if (this.emailTouched) {
       this.emailError = !this.validateEmail(this.email);
     }
+    this.duplicateEmailError = false; 
   }
 
   onEmailBlur() {
@@ -55,6 +58,7 @@ export class SignupComponent {
     if (this.passwordTouched) {
       this.passwordError = !this.validatePasswords(this.password, this.confirmPassword);
     }
+
   }
 
   onPasswordBlur() {
@@ -72,19 +76,26 @@ export class SignupComponent {
 generateRandomColor(): string {
   return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
 }
-  onSubmit() {
-    const color = this.generateRandomColor();
-    this.auth.signup(this.email, this.password, { name:`${this.fname} ${this.lname}`, color })
-      .subscribe({
-        next: (response: any) => {
-          console.log('Signup successful:', response);
-          this.router.navigate(['/login']);
-        },
-        error: (error: any) => {
-          console.error('Signup error:', error);
-        }
-      });
-  }
+    onSubmit() {
+      this.signupError = '';
+      this.duplicateEmailError = false; // <-- Adaugă această linie
+      const color = this.generateRandomColor();
+      this.auth.signup(this.email, this.password, { name:`${this.fname} ${this.lname}`, color })
+        .subscribe({
+          next: (response: any) => {
+            console.log('Signup successful:', response);
+            this.router.navigate(['/login']);
+          },
+          error: (error: any) => {
+            if (error.status === 409) {
+              this.duplicateEmailError = true; // <-- Modifică aici
+            } else {
+              this.signupError = 'A apărut o eroare. Vă rugăm să încercați din nou.';
+            }
+            console.error('Signup error:', error);
+          }
+        });
+    }
 
   navigateToLogin() {
     this.router.navigate(['/login']);
