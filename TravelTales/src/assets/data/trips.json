@@ -51,4 +51,18 @@
     ],
     "status": "vizitat"
   }
+  ,
+  {
+    "cityName": "Barcelona",
+    "country": "Spain",
+    "visitDate": "10 January 2024",
+    "description": "Modern architecture and beautiful beaches in the capital of Catalonia.",
+    "imageUrl": "https://images.unsplash.com/photo-1583422409516-2895a77efded?q=80&w=1000",
+    "tags": [
+      "Architecture",
+      "Beaches",
+      "Nightlife"
+    ],
+    "status": "vizitat"
+  }
 ]
