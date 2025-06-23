@@ -5,11 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { Trip } from '../../../core/trip/trip.interface';
 import { TripService } from '../../../core/trip/trip.service';
 import { TableComponent } from '../../table/table.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-trips',
   standalone: true,
-  imports: [CommonModule, FormsModule, TableComponent],
+  imports: [CommonModule, FormsModule, TableComponent, NzButtonModule, NzIconModule],
   templateUrl: './trips.component.html',
   styleUrls: ['./trips.component.scss']  
 })
@@ -19,7 +21,7 @@ export class TripsComponent implements OnInit {
   showModal: boolean = false;
   isEditing: boolean = false;
   editingIndex: number = -1;
-  currentView: 'cards' | 'table' = 'cards'; // Default to cards view
+  currentView: 'cards' | 'table' = 'cards';
   newTrip: Trip = {
     cityName: '',
     country: '',
@@ -219,7 +221,6 @@ export class TripsComponent implements OnInit {
       };
 
       if (this.isEditing && this.editingIndex !== -1) {
-        // Update existing trip
         this.http.put<{message: string, trips: Trip[]}>(`http://localhost:3000/trips/${this.editingIndex}`, formattedTrip).subscribe({
           next: (response) => {
             this.trips = response.trips;
@@ -231,7 +232,6 @@ export class TripsComponent implements OnInit {
           }
         });
       } else {
-        // Add new trip
         this.http.post<{message: string, trips: Trip[]}>(`http://localhost:3000/trips`, formattedTrip).subscribe({
           next: (response) => {
             this.trips = response.trips;

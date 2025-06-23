@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { FormsModule, NgForm, EmailValidator } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-singup',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NzButtonModule, NzIconModule],
   templateUrl: './singup.component.html',
   styleUrl: './singup.component.scss'
 })
@@ -74,15 +76,15 @@ export class SignupComponent {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 generateRandomColor(): string {
-  const hue = Math.floor(Math.random() * 360); // Nuanța: 0-359
-  const saturation = Math.floor(Math.random() * 21) + 70; // Saturația: 70-90%
-  const lightness = Math.floor(Math.random() * 16) + 25; // Luminozitatea: 25-40%
+  const hue = Math.floor(Math.random() * 360); 
+  const saturation = Math.floor(Math.random() * 21) + 70; 
+  const lightness = Math.floor(Math.random() * 16) + 25; 
 
   return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
     onSubmit() {
       this.signupError = '';
-      this.duplicateEmailError = false; // <-- Adaugă această linie
+      this.duplicateEmailError = false; 
       const color = this.generateRandomColor();
       this.auth.signup(this.email, this.password, { name:`${this.fname} ${this.lname}`, color })
         .subscribe({
@@ -92,7 +94,7 @@ generateRandomColor(): string {
           },
           error: (error: any) => {
             if (error.status === 409) {
-              this.duplicateEmailError = true; // <-- Modifică aici
+              this.duplicateEmailError = true;
             } else {
               this.signupError = 'A apărut o eroare. Vă rugăm să încercați din nou.';
             }

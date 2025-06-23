@@ -10,5 +10,17 @@
     "password": "Andrei123",
     "name": "Andrei Popescu",
     "color": "hsl(324, 76%, 32%)"
+  },
+  {
+    "email": "andreeabasno@gmail.com",
+    "password": "123456",
+    "name": "Andreea Basno",
+    "color": "hsl(258, 78%, 40%)"
+  },
+  {
+    "email": "",
+    "password": "",
+    "name": " ",
+    "color": "hsl(247, 88%, 38%)"
   }
 ]

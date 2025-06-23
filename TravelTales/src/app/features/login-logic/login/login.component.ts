@@ -3,12 +3,14 @@ import { Router } from '@angular/router';
 import { FormsModule, NgForm, EmailValidator } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NzButtonModule, NzIconModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -67,15 +69,12 @@ export class LoginComponent {
     error: (error: any) => {
       console.error('Login error:', error);
 
-      // Verifică statusul 404 PRIMUL
       if (error.status === 404) {
         this.emailNotFoundError = true;
       } 
-      // Apoi, verifică statusul 401
       else if (error.status === 401) {
         this.incorrectPasswordError = true;
       } 
-      // La final, eroarea generală
       else {
         this.loginError = 'Eroare la autentificare. Te rugăm să încerci din nou.';
       }
