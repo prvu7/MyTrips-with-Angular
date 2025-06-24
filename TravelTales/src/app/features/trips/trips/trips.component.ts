@@ -89,7 +89,6 @@ export class TripsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading trips:', error);
-        // Fallback to local data if server is not available
         this.trips = this.tripService.getTrips();
       }
     });
@@ -195,10 +194,9 @@ export class TripsComponent implements OnInit {
 
   deleteTrip() {
     if (!this.isEditing || this.editingIndex === -1) {
-      return; // Doar pentru siguranță, nu ar trebui să se întâmple
+      return; 
     }
 
-    // Afișează o fereastră de confirmare
     if (confirm('Are you sure you want to delete this trip?')) {
       this.http.delete<{message: string, trips: Trip[]}>(`http://localhost:3000/trips/${this.editingIndex}`).subscribe({
         next: (response) => {
